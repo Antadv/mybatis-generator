@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MySQLTables" targetRuntime="MyBatis3">
+
+        <!-- 覆盖生成XML文件 -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <!-- MBG Custom 文件分离 -->
+        <plugin type="com.somelogs.plugin.RenamePlugin"/>
+        <!-- 给字段添加注释 -->
+        <plugin type="com.somelogs.plugin.FieldCommentPlugin" />
+
+        <!-- 阻止自动生成的注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 生发环境数据库配置:修改配置 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/test"
+                        userId="root" password="8089">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- Entity -->
+        <javaModelGenerator targetPackage="com.somelogs.entity"
+                            targetProject="D:/imant/project/generator/generator-demo/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- Mapper Xml -->
+        <sqlMapGenerator targetPackage="com.somelogs.dao"
+                         targetProject="D:/imant/project/generator/generator-demo/src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- Mapper Interface -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.somelogs.dao"
+                             targetProject="D:/imant/project/generator/generator-demo/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--生成对应表和实体类名称   根据需要修改tableName    domainObjectName-->
+        <table tableName="t_goods" domainObjectName="Goods" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"
+               enableInsert="true" enableUpdateByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+            <property name="useActualColumnNames" value="false"/>
+            <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR"/>
+        </table>
+    </context>
+</generatorConfiguration>
