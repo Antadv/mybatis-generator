@@ -78,5 +78,5 @@ dao
 
 自定义了有两个插件
 
-- RenamePlugin：把文件分文 MBG 和 Custom
+- RenamePlugin：把文件分文 MBG 和 Custom 两类，Custom 继承自 MBG。
 - FieldCommentPlugin：生成的实体中字段添加注释，系统自动生成的注释一丢废话。。。
