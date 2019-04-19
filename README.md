@@ -16,8 +16,8 @@
 
 主要两个位置：
 
-- targetPackage：包名
-- targetProject：文件生成的绝对路径
+- targetPackage：包名，具体项目的包名
+- targetProject：文件生成的绝对路径，具体项目的路径
 
 ```xml
 <!-- Entity -->
