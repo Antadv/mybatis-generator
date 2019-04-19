@@ -29,6 +29,7 @@ public class FieldCommentPlugin extends PluginAdapter {
                                        IntrospectedTable table,
                                        ModelClassType modelClassType) {
         List<String> docLines = field.getJavaDocLines();
+        docLines.clear(); // 清除掉字段注释，不管 suppressAllComments 的值。
         docLines.add(0, "/**");
         docLines.add(1, " * " + column.getActualColumnName() + ": " + column.getRemarks());
         docLines.add(2, " */");
