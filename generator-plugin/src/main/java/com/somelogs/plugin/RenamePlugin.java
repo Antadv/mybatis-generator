@@ -164,7 +164,9 @@ public class RenamePlugin extends PluginAdapter {
             baseColumnEle.addElement(baseColumnRef);
             root.addElement(baseColumnEle);
 
-            File file = new File(projectName + File.separator + packageName + File.separator + fileName);
+            // com.xx.xx transfer to com\xx\xx
+            String pathName = packageName.replace(".", File.separator);
+            File file = new File(projectName + File.separator + pathName + File.separator + fileName);
             if (!file.exists()) {
                 GeneratedXmlFile gxf = new GeneratedXmlFile(document, fileName, packageName,
                         projectName, false, context.getXmlFormatter());
