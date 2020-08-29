@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration
-        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+                "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <context id="MySQLTables" targetRuntime="MyBatis3">
 
@@ -20,25 +19,25 @@
         <!-- 生发环境数据库配置:修改配置 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/test"
-                        userId="root" password="8089">
+                        userId="root" password="test">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!-- Entity -->
         <javaModelGenerator targetPackage="com.somelogs.entity"
-                            targetProject="D:/imant/project/generator/generator-demo/src/main/java">
+                            targetProject="/Users/imant/projects/mybatis-generator/generator-demo/src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- Mapper Xml -->
         <sqlMapGenerator targetPackage="com.somelogs.dao"
-                         targetProject="D:/imant/project/generator/generator-demo/src/main/resources">
+                         targetProject="/Users/imant/projects/mybatis-generator/generator-demo/src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- Mapper Interface -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.somelogs.dao"
-                             targetProject="D:/imant/project/generator/generator-demo/src/main/java">
+                             targetProject="/Users/imant/projects/mybatis-generator/generator-demo/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 

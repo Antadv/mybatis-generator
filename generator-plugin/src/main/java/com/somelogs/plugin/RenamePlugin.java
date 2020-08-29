@@ -178,10 +178,10 @@ public class RenamePlugin extends PluginAdapter {
             // 在 custom 中添加 baseResultMap, 继承 MBG 中的 BaseResultMap
             XmlElement baseResultMapEle = new XmlElement("resultMap");
             Attribute baseResultMapId = new Attribute("id", "baseResultMap");
-            Attribute baseResultMapType = new Attribute("type", "");
-            Attribute baseResultMapExtend = new Attribute("extends", mbgMapperReference + ".BaseResultMap");
             baseResultMapEle.addAttribute(baseResultMapId);
+            Attribute baseResultMapType = new Attribute("type", getFullEntityClassName(table));
             baseResultMapEle.addAttribute(baseResultMapType);
+            Attribute baseResultMapExtend = new Attribute("extends", mbgMapperReference + ".BaseResultMap");
             baseResultMapEle.addAttribute(baseResultMapExtend);
             root.addElement(baseResultMapEle);
 
@@ -195,5 +195,9 @@ public class RenamePlugin extends PluginAdapter {
             }
         }
         return result;
+    }
+
+    private String getFullEntityClassName(IntrospectedTable table) {
+        return table.getGeneratedJavaFiles().get(0).getCompilationUnit().getType().getFullyQualifiedName();
     }
 }
