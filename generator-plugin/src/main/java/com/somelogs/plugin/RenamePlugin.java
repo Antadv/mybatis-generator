@@ -164,6 +164,27 @@ public class RenamePlugin extends PluginAdapter {
             baseColumnEle.addElement(baseColumnRef);
             root.addElement(baseColumnEle);
 
+            // 在 custom 中添加 base_column_prefix, 引用 MBG 中的 base_column_prefix_List
+            XmlElement baseColumnPrefixEle = new XmlElement("sql");
+            Attribute baseColumnPrefixIdAttr = new Attribute("id", "base_column_prefix");
+            baseColumnPrefixEle.addAttribute(baseColumnPrefixIdAttr);
+
+            XmlElement baseColumnPrefixRef = new XmlElement("include");
+            Attribute baseColumnPrefixIdRefVal = new Attribute("refid", mbgMapperReference + ".Base_Column_Prefix_List");
+            baseColumnPrefixRef.addAttribute(baseColumnPrefixIdRefVal);
+            baseColumnPrefixEle.addElement(baseColumnPrefixRef);
+            root.addElement(baseColumnPrefixEle);
+
+            // 在 custom 中添加 baseResultMap, 继承 MBG 中的 BaseResultMap
+            XmlElement baseResultMapEle = new XmlElement("resultMap");
+            Attribute baseResultMapId = new Attribute("id", "baseResultMap");
+            Attribute baseResultMapType = new Attribute("type", "");
+            Attribute baseResultMapExtend = new Attribute("extends", mbgMapperReference + ".BaseResultMap");
+            baseResultMapEle.addAttribute(baseResultMapId);
+            baseResultMapEle.addAttribute(baseResultMapType);
+            baseResultMapEle.addAttribute(baseResultMapExtend);
+            root.addElement(baseResultMapEle);
+
             // com.xx.xx transfer to com\xx\xx
             String pathName = packageName.replace(".", File.separator);
             File file = new File(projectName + File.separator + pathName + File.separator + fileName);
