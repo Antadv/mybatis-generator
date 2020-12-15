@@ -41,7 +41,7 @@
         </javaClientGenerator>
 
         <!--生成对应表和实体类名称   根据需要修改tableName    domainObjectName-->
-        <table tableName="tb_vr_app_resource_position_type" domainObjectName="AppResourcePositionType" enableCountByExample="false"
+        <table tableName="tb_vr_private_merchant_account_shop" domainObjectName="PrivateMerchantAccountShop" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"
                enableInsert="true" enableUpdateByPrimaryKey="true"
