@@ -18,7 +18,8 @@ public class MyBatisCodeGenerator {
     public static void main(String[] args) throws Exception {
         System.out.println("+++++++++generate begin++++++++++");
         List<String> warnings = new ArrayList<String>();
-        String url = MyBatisCodeGenerator.class.getResource("/MBG_configuration.xml").getFile();
+        //String url = MyBatisCodeGenerator.class.getResource("/MBG_configuration.xml").getFile();
+        String url = MyBatisCodeGenerator.class.getResource("/fcrm_MBG_configuration.xml").getFile();
         File configFile = new File(url);
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);

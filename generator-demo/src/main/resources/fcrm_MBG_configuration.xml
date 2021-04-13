@@ -7,7 +7,10 @@
         <!-- 覆盖生成XML文件 -->
         <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
         <!-- MBG Custom 文件分离 -->
-        <plugin type="com.somelogs.plugin.RenamePlugin"/>
+        <plugin type="com.somelogs.plugin.RenamePlugin">
+            <property name="basePkg" value="base"/>
+            <property name="customPkg" value="biz"/>
+        </plugin>
         <!-- 给字段添加注释 -->
         <plugin type="com.somelogs.plugin.FieldCommentPlugin" />
 
@@ -18,29 +21,29 @@
 
         <!-- 生发环境数据库配置:修改配置 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://db224.dev.rs.com:3306/db_vr"
-                        userId="user_vr" password="user_vr20190411">
+                        connectionURL="jdbc:mysql://db224.dev.rs.com:3306/db_fcrm"
+                        userId="user_fcrm" password="user_fcrm20200506">
         </jdbcConnection>
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.chinaredstar.vr.service.entity"
-                            targetProject="/Users/imant/tmp-project/p-vr/p-vr-service/src/main/java">
+        <javaModelGenerator targetPackage="com.redstarclouds.fcrm.core.entity"
+                            targetProject="/Users/imant/projects/fcrm-api/fcrm-core/src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="com.chinaredstar.vr.service.dao"
-                         targetProject="/Users/imant/tmp-project/p-vr/p-vr-service/src/main/resources">
+        <sqlMapGenerator targetPackage="mappers"
+                         targetProject="/Users/imant/projects/fcrm-api/fcrm-core/src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.chinaredstar.vr.service.dao"
-                             targetProject="/Users/imant/tmp-project/p-vr/p-vr-service/src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.redstarclouds.fcrm.core.dao"
+                             targetProject="/Users/imant/projects/fcrm-api/fcrm-core/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="tb_vr_file_rel" domainObjectName="FileRel" enableCountByExample="false"
+        <table tableName="tb_operation_log" domainObjectName="OperationLog" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"
                enableInsert="true" enableUpdateByPrimaryKey="true"

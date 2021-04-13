@@ -45,15 +45,24 @@ import java.util.regex.Pattern;
 public class RenamePlugin extends PluginAdapter {
 
     private String replaceStr;
+    private String basePkg;
+    private String customPkg;
+
     private Pattern pattern;
     private boolean replaceFlag;
 
     @Override
     public boolean validate(List<String> warnings) {
+        basePkg = properties.getProperty("basePkg");
+        basePkg = basePkg != null && basePkg.length() > 0 ? basePkg : "mbg";
+        customPkg = properties.getProperty("customPkg");
+        customPkg = customPkg != null && customPkg.length() > 0 ? customPkg : "custom";
+
         // searchString 指文件名中需要替换的字符串
         String searchStr = properties.getProperty("searchString");
         replaceStr = properties.getProperty("replaceString");
-        boolean valid = StringUtility.stringHasValue(searchStr) && StringUtility.stringHasValue(replaceStr);
+        boolean valid = StringUtility.stringHasValue(searchStr)
+                && StringUtility.stringHasValue(replaceStr);
 
         if (valid) {
             pattern = Pattern.compile(searchStr);
@@ -79,7 +88,7 @@ public class RenamePlugin extends PluginAdapter {
         }
         int idx = oldType.lastIndexOf(".");
         if (idx > 0) {
-            oldType = oldType.substring(0, idx) + ".mbg" + oldType.substring(idx);
+            oldType = oldType.substring(0, idx) + "." + basePkg + oldType.substring(idx);
         }
         table.setMyBatis3JavaMapperType(oldType);
 
@@ -92,7 +101,7 @@ public class RenamePlugin extends PluginAdapter {
             mapperName = mapperName.replaceAll("Mapper", "MBGMapper");
         }
         table.setMyBatis3XmlMapperFileName(mapperName);
-        String mapperPkg = table.getMyBatis3XmlMapperPackage() + File.separator + "mbg";
+        String mapperPkg = table.getMyBatis3XmlMapperPackage() + File.separator + basePkg;
         table.setMyBatis3XmlMapperPackage(mapperPkg);
     }
 
@@ -107,7 +116,7 @@ public class RenamePlugin extends PluginAdapter {
             }
         }
         if (g != null) {
-            String pkgName = g.getTargetPackage().replace("mbg", "custom");
+            String pkgName = g.getTargetPackage().replace(basePkg, customPkg);
             String className = g.getCompilationUnit().getType().getShortName().replace("MBG", "");
             Interface customInterface = new Interface(pkgName + "." + className);
             customInterface.setVisibility(JavaVisibility.PUBLIC);
@@ -131,7 +140,7 @@ public class RenamePlugin extends PluginAdapter {
         List<GeneratedXmlFile> result = new ArrayList<>();
         GeneratedXmlFile mbgXml = table.getGeneratedXmlFiles().get(0);
         String projectName = mbgXml.getTargetProject();
-        String packageName = mbgXml.getTargetPackage().replace("mbg", "custom");
+        String packageName = mbgXml.getTargetPackage().replace(basePkg, customPkg);
         GeneratedJavaFile g = null;
         for (GeneratedJavaFile f : table.getGeneratedJavaFiles()) {
             if (f.getFileName().contains("Dao") || f.getFileName().contains("Mapper")) {
@@ -147,7 +156,7 @@ public class RenamePlugin extends PluginAdapter {
 
             String className = g.getFileName().replace("MBG", "");
             String fileName = g.getFileName().replace("MBG", "").replace(".java", ".xml");
-            String pkgName = g.getTargetPackage().replace(".mbg", ".custom");
+            String pkgName = g.getTargetPackage().replace("." + basePkg, "." + customPkg);
             String mapperReference = pkgName + "." + className.replace(".java", "");
             Attribute attribute = new Attribute("namespace", mapperReference);
             root.addAttribute(attribute);
